@@ -8,25 +8,25 @@ import org.testng.annotations.BeforeClass
 import org.testng.annotations.BeforeMethod
 import java.time.Duration
 
-abstract class BaseTest<Page: BasePage> : IBaseTest {
+abstract class BaseTest<Page: IBasePage> : IBaseTest {
 
     companion object {
-        const val DEFAULT_WAITING_SECONDS = 10L
+        const val DEFAULT_WAITING_SECONDS = 4L
     }
 
     abstract override val page: Page
 
     override var waitSecond = DEFAULT_WAITING_SECONDS
+    override var holdBrowserOpen = false
 
     override val wait
         get() = WebDriverWait(WebDriverRunner.getWebDriver(), Duration.ofSeconds(waitSecond))
-
-    private var isFirstMethod = true
 
     @BeforeClass
     override fun beforeClass() {
         Configuration.browserSize = "1920x1080"
         Configuration.browser = "edge"
+        Configuration.holdBrowserOpen = holdBrowserOpen
     }
 
     @BeforeMethod

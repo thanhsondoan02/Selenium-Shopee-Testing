@@ -7,9 +7,10 @@ import org.testng.annotations.BeforeMethod
 
 interface IBaseTest {
 
-    val page: BasePage
+    val page: IBasePage
     val wait: WebDriverWait
     var waitSecond: Long
+    var holdBrowserOpen: Boolean
 
     @BeforeClass
     fun beforeClass()
