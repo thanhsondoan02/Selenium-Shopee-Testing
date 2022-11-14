@@ -1,5 +1,6 @@
 package peswoc.test
 
+import org.openqa.selenium.support.ui.ExpectedConditions
 import org.testng.annotations.Test
 import peswoc.base.BaseTest
 import peswoc.page.ProductPage
@@ -11,6 +12,28 @@ class ViewProductTest: BaseTest<ProductPage>() {
 
     init {
         holdBrowserOpen = true
+    }
+
+    private var plusClick = 4
+    private var minusClick = 2
+
+    @Test
+    fun testChangeQuantity() {
+        var expectedQuantity = page.quantityInput.value!!.toInt()
+
+        // increase quantity
+        for (i in 1..plusClick) {
+            page.quantityPlusButton.click()
+            expectedQuantity++
+            wait.until(ExpectedConditions.textToBePresentInElementValue(page.quantityInput, expectedQuantity.toString()))
+        }
+
+        // decrease quantity
+        for (i in 1..minusClick) {
+            page.quantityMinusButton.click()
+            if (expectedQuantity > 1) expectedQuantity--
+            wait.until(ExpectedConditions.textToBePresentInElementValue(page.quantityInput, expectedQuantity.toString()))
+        }
     }
 
     @Test
