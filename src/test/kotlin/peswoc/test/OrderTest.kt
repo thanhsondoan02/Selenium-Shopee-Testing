@@ -53,33 +53,19 @@ class OrderTest : BaseTest<ProductPage>() {
     fun loginAndAddToCart() {
         if (page.accountNavList.size == 0) { // not login yet
             page.addToCartButton.click()
-            loginPage.waitUtilLoginPage(wait).login(accountEmail, accountPassword)
-            wait.until(ExpectedConditions.urlToBe(page.pageUrl + "&is_from_login=true"))
+            loginPage.waitUtilLoginPage(wait).login(wait, accountEmail, accountPassword)
+            wait.until(ExpectedConditions.urlToBe(LoginPage.PAGE_URL + "&is_from_login=true"))
             page.accountNav.shouldBe(Condition.visible)
         }
-        chooseItemAndClickAddCart(addValue)
+        page.chooseItemAndClickAddCart()
 
         // check in page cart
     }
 
-    fun chooseItemAndClickAddCart(valueList: List<Int>) {
-        for (i in 0..valueList.size - 2) {
-            page.flexItem(i+1, addValue[i]).click()
-        }
-        changeQuantity(addValue.last())
-        page.addToCartButton.click()
-    }
 
 
 
-    fun changeQuantity(expectedQuantity: Int) {
-        while (page.quantityInput.value!!.toInt() != expectedQuantity) {
-            if (page.quantityInput.value!!.toInt() < expectedQuantity) {
-                page.quantityPlusButton.click()
-            } else {
-                page.quantityMinusButton.click()
-            }
-        }
-    }
+
+
 
 }

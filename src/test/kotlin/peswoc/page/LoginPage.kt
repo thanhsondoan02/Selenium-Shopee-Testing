@@ -2,8 +2,10 @@ package peswoc.page
 
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Selectors.byXpath
+import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.Selenide.element
 import com.codeborne.selenide.Selenide.open
+import com.codeborne.selenide.WebDriverRunner
 import org.openqa.selenium.support.ui.ExpectedConditions
 import org.openqa.selenium.support.ui.WebDriverWait
 import peswoc.base.IBasePage
@@ -28,10 +30,12 @@ class LoginPage : IBasePage {
         open(PAGE_URL)
     }
 
-    fun login(accountEmail: String, accountPassword: String) {
+    fun login(wait: WebDriverWait, accountEmail: String = "bihepimaidarl7@gmail.com", accountPassword: String = "Abcd1234") {
         emailBox.sendKeys(accountEmail)
         passwordBox.sendKeys(accountPassword)
+        val oldUrl = WebDriverRunner.currentFrameUrl()
         buttonLogin.shouldBe(Condition.enabled).click()
+        wait.until{ Selenide.elements(byXpath(ProductPage.ACCOUNT_NAV)).size == 1 }
     }
 
     fun waitUtilLoginPage(wait: WebDriverWait): LoginPage {
