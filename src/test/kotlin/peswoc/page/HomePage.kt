@@ -3,6 +3,8 @@ package peswoc.page
 import com.codeborne.selenide.Selectors
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.Selenide.element
+import com.codeborne.selenide.WebDriverRunner
+import org.openqa.selenium.By
 import peswoc.base.IBasePage
 
 class HomePage: IBasePage {
@@ -16,6 +18,7 @@ class HomePage: IBasePage {
         const val POP_UP_CLOSE_BUTTON = "//div[@class='home-popup__close-area']"
         const val POP_UP_CONTENT = "//a[@target='_self']"
         const val LIST_HINT_BOX = "//div[@id='shopee-searchbar-listbox']"
+        const val CLOSE_AD_BUTTON = "//div[@class='shopee-popup__close-btn']"
     }
 
     val searchBox = element(Selectors.byXpath(SEARCH_BOX))
@@ -26,6 +29,13 @@ class HomePage: IBasePage {
 
     override fun open() {
         Selenide.open(PAGE_URL)
+    }
+
+    fun closePopUp() {
+        val bannerPopUpStateful = WebDriverRunner.getWebDriver().findElement(Selectors.byXpath("//shopee-banner-popup-stateful"))
+        val root = bannerPopUpStateful.shadowRoot
+        val closeAdButton = root.findElement(By.className("shopee-popup__close-btn"))
+        closeAdButton.click()
     }
 
 }
