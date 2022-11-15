@@ -35,13 +35,14 @@ class LoginTest : BaseTest<LoginPage>() {
 
     @Test
     fun filledEmailAndPassword() {
+        page.buttonLogin.shouldBe(disabled)
         page.emailBox.sendKeys("fvasfgsa")
         page.passwordBox.sendKeys("fasgfags")
         page.buttonLogin.shouldBe(enabled)
     }
 
     @Test
-    fun wrongEmailAndPassword() {
+    fun wrongEmailOrPassword() {
         page.emailBox.sendKeys("bihepimaidarl7@gmail.com")
         page.passwordBox.sendKeys("Abcd12345")
         page.buttonLogin.shouldBe(enabled).click()
