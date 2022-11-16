@@ -15,10 +15,6 @@ class SearchTest : BaseTest<HomePage>(){
     private val searchPage: SearchPage
         get() = SearchPage()
 
-    init {
-        holdBrowserOpen = true
-    }
-
     @BeforeMethod
     override fun beforeMethod() {
         super.beforeMethod()

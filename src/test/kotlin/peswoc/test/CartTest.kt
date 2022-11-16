@@ -17,10 +17,6 @@ class CartTest : BaseTest<ProductPage>() {
     private val loginPage: LoginPage
         get() = LoginPage()
 
-    init {
-        holdBrowserOpen = true
-    }
-
     @Test
     fun addToCart(){
         Thread.sleep(2000)

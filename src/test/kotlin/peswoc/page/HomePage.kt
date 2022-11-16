@@ -34,8 +34,8 @@ class HomePage: IBasePage {
     fun closePopUp() {
         val bannerPopUpStateful = WebDriverRunner.getWebDriver().findElement(Selectors.byXpath("//shopee-banner-popup-stateful"))
         val root = bannerPopUpStateful.shadowRoot
-        val closeAdButton = root.findElement(By.className("shopee-popup__close-btn"))
-        closeAdButton.click()
+        val closeAdButton = root.findElements(By.className("shopee-popup__close-btn"))
+        closeAdButton.getOrNull(0)?.click()
     }
 
 }

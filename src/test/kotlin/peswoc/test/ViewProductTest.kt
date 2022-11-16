@@ -10,10 +10,6 @@ class ViewProductTest: BaseTest<ProductPage>() {
     override val page: ProductPage
         get() = ProductPage()
 
-    init {
-        holdBrowserOpen = true
-    }
-
     private var plusClick = 4
     private var minusClick = 2
 

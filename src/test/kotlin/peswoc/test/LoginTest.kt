@@ -1,9 +1,7 @@
 package peswoc.test
 
 import com.codeborne.selenide.Condition.*
-import com.codeborne.selenide.WebDriverRunner
 import org.openqa.selenium.support.ui.ExpectedConditions.urlToBe
-import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 import peswoc.base.BaseTest
 import peswoc.page.LoginPage
@@ -12,12 +10,6 @@ class LoginTest : BaseTest<LoginPage>() {
 
     override val page: LoginPage
         get() = LoginPage()
-
-    @BeforeMethod
-    override fun beforeMethod() {
-        WebDriverRunner.closeWebDriver()
-        super.beforeMethod()
-    }
 
     @Test
     fun emptyEmail() {

@@ -31,6 +31,7 @@ abstract class BaseTest<Page: IBasePage> : IBaseTest {
 
     @BeforeMethod
     override fun beforeMethod() {
+        WebDriverRunner.closeWebDriver()
         loadPage()
     }
 
