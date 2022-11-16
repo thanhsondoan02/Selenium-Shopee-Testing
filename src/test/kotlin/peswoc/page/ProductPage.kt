@@ -88,4 +88,9 @@ class ProductPage: IBasePage {
         return button.getAttribute("class") == PRODUCT_TYPE_BUTTON_SELECTED_CLASS
     }
 
+    fun addToCart(wait: WebDriverWait) {
+        chooseAllType(wait)
+        addToCartButton.click()
+    }
+
 }
