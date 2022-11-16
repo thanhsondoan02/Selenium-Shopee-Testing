@@ -10,10 +10,12 @@ class CartPage : IBasePage {
         const val PAGE_URL = "https://shopee.vn/cart"
         const val PRODUCT_TITLE = "//a[@class='_2fQT1K']"
         const val PRODUCT_NUMBER = "//input[@class='EcPhjV _3cj9Np']"
+        const val DELETE_BUTTON = "//div[@class='_2y8iJi _2qPRqW']/button[@class='RCd1Gx']"
     }
 
     val productTitleList: MutableList<String> = Selenide.elements(Selectors.byXpath(PRODUCT_TITLE)).texts()
     private val productNumberList = Selenide.elements(Selectors.byXpath(PRODUCT_NUMBER))
+    val deleteButtonList = Selenide.elements(Selectors.byXpath(DELETE_BUTTON))
 
     override fun open() {
         Selenide.open(PAGE_URL)

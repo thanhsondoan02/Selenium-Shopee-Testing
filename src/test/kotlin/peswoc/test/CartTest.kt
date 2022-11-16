@@ -21,23 +21,25 @@ class CartTest : BaseTest<ProductPage>() {
         holdBrowserOpen = true
     }
 
-    override fun loadPage() {}
-
     @Test
     fun addToCart(){
-        // login to existing account
-        loginPage.open()
-        loginPage.login(wait)
+        Thread.sleep(2000)
+
+        // if haven't logged then login
+        if (loginPage.accountNav.size == 0) {
+            loginPage.open()
+            wait.until{ loginPage.emailBoxes.size == 1 }
+            loginPage.login(wait)
+        }
 
         //open product page and get title of product
         page.open()
         val title = page.title.text()
-        var oldProductNumber = 0
 
         // open cart page and check if the product exists
         cartPage.open()
         Thread.sleep(2000)
-        oldProductNumber = getProductNumberOfTitle(title)
+        val oldProductNumber = getProductNumberOfTitle(title)
 
         // add product to cart
         page.open()
@@ -48,6 +50,29 @@ class CartTest : BaseTest<ProductPage>() {
         cartPage.open()
         Thread.sleep(2000)
         assert(getProductNumberOfTitle(title) == oldProductNumber + 1)
+    }
+
+    @Test
+    fun deleteFromCart() {
+        Thread.sleep(2000)
+
+        // if haven't logged then login
+        if (loginPage.accountNav.size == 0) {
+            loginPage.open()
+            wait.until{ loginPage.emailBoxes.size == 1 }
+            loginPage.login(wait)
+        }
+
+        // open cart page and get first product title
+        cartPage.open()
+        Thread.sleep(2000)
+        val title = cartPage.productTitleList[0]
+
+        // delete product with that title
+        cartPage.deleteButtonList[cartPage.productTitleList.indexOf(title)].click()
+
+        // check if the product is deleted
+        wait.until{ !cartPage.productTitleList.contains(title) }
     }
 
     private fun getProductNumberOfTitle(title: String): Int {
